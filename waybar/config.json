@@ -1,0 +1,223 @@
+// -*- mode: jsonc -*-
+{
+    // "layer": "top", // Waybar at top layer
+    // "position": "bottom", // Waybar position (top|bottom|left|right)
+    "height": 30, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    "spacing": 4, // Gaps between modules (4px)
+    // Choose the order of the modules
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/mode",
+        "hyprland/scratchpad",
+	"cpu",
+	"memory",
+	"temperature"
+    ],
+    "modules-center": [
+	    "cava"
+    ],
+    "modules-right": [
+        "pulseaudio",
+	"backlight",
+        "network",
+        "battery",
+        "clock",
+	"tray"
+    ],
+    // Modules configuration
+     "hyprland/workspaces": {
+         "format": "{icon}",
+         "format-icons": {
+
+             "urgent": "[!]",
+             "focused": "][",
+             "default": "[]"
+         }
+     },
+    "keyboard-state": {
+        "numlock": true,
+        "capslock": true,
+        "format": "{name} {icon}",
+        "format-icons": {
+            "locked": "",
+            "unlocked": ""
+        }
+    },
+    "hyprland/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "hyprland/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": ["", ""],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+    "mpd": {
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+        "format-disconnected": "Disconnected ",
+        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+        "unknown-tag": "N/A",
+        "interval": 5,
+        "consume-icons": {
+            "on": " "
+        },
+        "random-icons": {
+            "o<F2>ff": "<span color=\"#f53c3c\"></span> ",
+            "on": " "
+        },
+        "repeat-icons": {
+            "on": " "
+        },
+        "single-icons": {
+            "on": "1 "
+        },
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        },
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10
+    },
+    "clock": {
+        "timezone": "America/Arizona",
+	"format": "{:%I:%M %p}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%Y-%m-%d}",
+	"interval": 1
+    },
+    "cpu": {
+        "format": "{usage}% CPU",
+        "tooltip": false
+    },
+    "memory": {
+        "format": "{}% MEM"
+    },
+    "temperature": {
+        // "thermal-zone": 2,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 95,
+        // "format-critical": "{temperatureC}°C HOT",
+        "format": "{temperatureC}°C {icon}",
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{percent}% BRT",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "battery": {
+        "states": {
+            // "good": 100,
+            "warning": 30,
+            "critical": 15,
+	    "dead": 3
+        },
+	"interval": 2,
+        "format": "{capacity}% BAT",
+        "format-full": "{capacity}% BAT",
+        "format-charging": "{capacity}% AC",
+        "format-plugged": "{capacity}% AC",
+        "format-alt": "{power} W",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "battery#bat2": {
+        "bat": "BAT2"
+    },
+    "power-profiles-daemon": {
+      "format": "{icon}",
+      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+      "tooltip": true,
+      "format-icons": {
+        "default": "",
+        "performance": "",
+        "balanced": "",
+        "power-saver": ""
+      }
+    },
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "{essid} ({signalStrength}%)",
+	"interval": 2,
+        "format-ethernet": "{ipaddr}/{cidr} ",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "NO LAN",
+        "format-alt": "{bandwidthUpBytes} UP {bandwidthDownBytes} DOWN",
+	"on-click-right": ""
+    },
+    "pulseaudio": {
+        "scroll-step": 2, // %, can be a float
+        "format": "{volume}% VOL",
+        "format-bluetooth": "{volume}% BLT",
+        "format-bluetooth-muted": "MUT% BLT",
+        "format-muted": "MUT%",
+	// "format-source": "{volume}% MIC",
+        "format-source-muted": "MUT",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/media": {
+        "format": "{icon} {text}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "",
+            "default": "🎜"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    },
+    "custom/power": {
+        "format" : "⏻ ",
+		"tooltip": false,
+		"menu": "on-click",
+		"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
+		"menu-actions": {
+			"shutdown": "shutdown",
+			"reboot": "reboot",
+			"suspend": "systemctl suspend",
+			"hibernate": "systemctl hibernate"
+		}
+    },
+    "custom/spotify": {
+	    "format": "{icon} {}",
+	    "escape": true,
+	    "return-type": "json",
+	    "max-length": 40,
+            "interval": 30, // Remove this if your script is endless and write in loop
+            "on-click": "playerctl -p spotify play-pause",
+            "on-click-right": "killall spotify",
+            "smooth-scrolling-threshold": 10, // This value was tested using a trackpad, it should be lowered if using a mouse.
+            "on-scroll-up" : "playerctl -p spotify next",
+            "on-scroll-down" : "playerctl -p spotify previous"
+    },
+    "cava": {
+	    "cava_config": "/home/ava/.config/cava/config",
+	    "bars": 50,
+	    "bar_delimiter": 0,
+	    "format-icons" : ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ]
+    }
+}

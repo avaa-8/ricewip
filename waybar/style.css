@@ -1,0 +1,40 @@
+*{ 
+	border: none;
+	border-radius: 0;
+	font-family: "Jetbrains Mono";
+	font-size: 13px;
+	min-height: 0;
+}
+window#waybar { 
+	background-color: rgba(0,0,0,0.9);
+	color:#1B96A5;
+}
+#workspaces button {
+	color:#1B96A5;
+}
+#workspaces button.active {
+	color:#BDB9B7;
+	font-weight: bold;
+}
+#clock, #battery, #memory, #network, #pulseaudio, #backlight, #custom-spotify, #tray, #mode {
+	padding: 0 3px;
+	margin: 0 4px;
+}
+#network.disconnected {
+	color:#E2EAEC;
+}
+#battery.warning {
+	color:#030F10;
+}
+#battery.critical { 
+	color:#800000;
+	background-color:#E2EAEC;
+}
+window#waybar.battery-dead {
+		color:#8a0000;
+		background-color:#E2EAEC;
+}
+#temperature, #cpu {
+	padding: 0 3px;
+	margin: 0 3px;
+}
